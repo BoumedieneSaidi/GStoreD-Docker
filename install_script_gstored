@@ -13,8 +13,8 @@ make
 sudo make install
 
 # Clonage du repo gStoreD
-git clone https://github.com/bnu05pp/gStoreD.git /app/gStoreD
-cd /app/gStoreD
+git clone https://github.com/bnu05pp/gStoreD.git 
+cd gStoreD
 
 # Modification du code source gStoreD
 sed -i 's/const double JUDGE_LIMIT = 0.5;/constexpr double JUDGE_LIMIT = 0.5;/' Database/Join.h
@@ -23,3 +23,6 @@ sed -i 's/CFLAGS = -c -Wall -O2 #-pg #-O2/CFLAGS = -c -Wall -no-pie -O2 #-pg #-O
 
 # Compilation du projet gStoreD
 make
+#add master@ip master-host-name to /etc/hosts in each worker
+#add private key for communication in master and workers
+#use this two commands: 1- eval "$(ssh-agent -s)"    2- ssh-add ~/.ssh/pqdag

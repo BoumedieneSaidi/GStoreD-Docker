@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Mise à jour du système et installation des dépendances
+sudo apt update
+sudo apt install -y build-essential wget git libreadline-dev default-jdk gfortran
+
+# Installation de MPICH2
+wget http://www.mpich.org/static/downloads/3.0.4/mpich-3.0.4.tar.gz
+tar xfz mpich-3.0.4.tar.gz
+cd mpich-3.0.4
+./configure
+make
+sudo make install
+
+# Clonage du repo gStoreD
+git clone https://github.com/bnu05pp/gStoreD.git /app/gStoreD
+cd /app/gStoreD
+
+# Modification du code source gStoreD
+sed -i 's/const double JUDGE_LIMIT = 0.5;/constexpr double JUDGE_LIMIT = 0.5;/' Database/Join.h
+sed -i 's/EXEFLAG = -O2 #-pg #-O2/EXEFLAG = -O2 -no-pie #-pg #-O2/' makefile
+sed -i 's/CFLAGS = -c -Wall -O2 #-pg #-O2/CFLAGS = -c -Wall -no-pie -O2 #-pg #-O2/' makefile
+
+# Compilation du projet gStoreD
+make
+
